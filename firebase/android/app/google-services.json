@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "139275365816",
+    "project_id": "fir-mansoure",
+    "storage_bucket": "fir-mansoure.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:139275365816:android:a2e71de7970b584eb8f34d",
+        "android_client_info": {
+          "package_name": "com.osm.firebasemansoure.firebase"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "139275365816-r5j2eujmnmqh155niko2g6dthp46a8h6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.osm.firebasemansoure.firebase",
+            "certificate_hash": "c6a69ee6690ba0c957c0c79b38bb03a1209bd9bf"
+          }
+        },
+        {
+          "client_id": "139275365816-cns1dhuqr2qgkv5e8eqpofk1vch75bfc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCdycyDtwzlOQMR35re71fwbggukvdY4AY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "139275365816-cns1dhuqr2qgkv5e8eqpofk1vch75bfc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
