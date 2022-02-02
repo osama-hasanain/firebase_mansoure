@@ -1,5 +1,6 @@
 import 'package:firebase/layout/cubit/cubit.dart';
 import 'package:firebase/modual/social_login/social_login.dart';
+import 'package:firebase/modual/users/live_location.dart';
 import 'package:firebase/provider/themes.dart';
 import 'package:firebase/shared/components/components.dart';
 import 'package:firebase/shared/components/constant.dart';
@@ -65,6 +66,8 @@ class MyApp extends StatelessWidget {
           return MaterialApp(
             debugShowCheckedModeBanner: false,
             theme:lightTheme,
+            darkTheme: darkTheme,
+            themeMode: SocialCubit.get(context).isDark?ThemeMode.dark:ThemeMode.light,
             home: widget,
           );
         },

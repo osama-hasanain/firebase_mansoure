@@ -8,6 +8,8 @@ import 'package:firebase/modual/add_post/add_post.dart';
 import 'package:firebase/modual/chats/chat_screen.dart';
 import 'package:firebase/modual/feeds/feeds_screen.dart';
 import 'package:firebase/modual/settings/settings_screen.dart';
+import 'package:firebase/modual/users/live_location.dart';
+import 'package:firebase/modual/users/user_screen2.dart';
 import 'package:firebase/modual/users/users_screen.dart';
 import 'package:firebase/shared/components/constant.dart';
 import 'package:firebase/shared/network/remote/dio_helper.dart';
@@ -28,7 +30,7 @@ class SocialCubit extends Cubit<SocialState>{
     FeedsScreen(),
     ChatsScreen(),
     AddPost(),
-    UsersScreen(),
+    LiveLocation(),
     SettingsScreen(),
   ];
   var titles =[
@@ -50,7 +52,7 @@ class SocialCubit extends Cubit<SocialState>{
       emit(SocialGetSuccessState());
     }).catchError((error){
       print(error);
-      emit(SocialGetErrorState(error));
+      emit(SocialGetErrorState(error.toString()));
     });
   }
 
@@ -281,7 +283,7 @@ class SocialCubit extends Cubit<SocialState>{
            emit(SocialGetPostsSuccessState());
         })
         .catchError((error){
-          emit(SocialGetPostsErrorState(error));
+          emit(SocialGetPostsErrorState(error.toString()));
         });
   }
 
@@ -378,7 +380,7 @@ class SocialCubit extends Cubit<SocialState>{
         .collection('chats')
         .doc(receivedId)
         .collection('messages')
-        .orderBy('dateTime')
+        .orderBy('dateTime',descending: true)
         .snapshots()
         .listen((event) {
           messages = [];
@@ -387,5 +389,11 @@ class SocialCubit extends Cubit<SocialState>{
           });
           emit(SocialGetMessagesSuccessState());
         });
+  }
+
+  bool isDark = false;
+  void changeThemeMode(){
+    isDark = !isDark;
+    emit(SocialChangeThemeModeState());
   }
 }

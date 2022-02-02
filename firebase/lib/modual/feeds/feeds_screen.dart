@@ -7,12 +7,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 
-class FeedsScreen extends StatelessWidget {
+class FeedsScreen extends StatefulWidget {
 
+  @override
+  State<FeedsScreen> createState() => _FeedsScreenState();
+}
+
+class _FeedsScreenState extends State<FeedsScreen> {
   @override
   Widget build(BuildContext context) {
     return  BlocConsumer<SocialCubit,SocialState>(
-      listener: (context,state){},
+      listener: (context,state){
+      },
       builder: (context,state){
           if(SocialCubit.get(context).posts.isNotEmpty)
             return SingleChildScrollView(
@@ -60,11 +66,13 @@ class FeedsScreen extends StatelessWidget {
       },
     );
   }
+
   Widget postItemBuilder(context,SocialPostModel itemPost,int postId) =>
       Card(
         clipBehavior: Clip.antiAliasWithSaveLayer,
         elevation: 5,
         margin: EdgeInsets.symmetric(horizontal: 8),
+        color: Theme.of(context).scaffoldBackgroundColor,
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Column(
@@ -109,7 +117,9 @@ class FeedsScreen extends StatelessWidget {
                   SizedBox(width: 10,),
                   IconButton(
                     onPressed: (){},
-                    icon: Icon(Icons.more_horiz),
+                    icon: Icon(
+                        Icons.more_horiz,
+                    ),
                     iconSize: 16,
                   ),
                 ],

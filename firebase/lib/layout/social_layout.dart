@@ -4,7 +4,6 @@ import 'package:firebase/modual/add_post/add_post.dart';
 import 'package:firebase/shared/components/components.dart';
 import 'package:firebase/shared/styles/icon_broken.dart';
 import 'package:flutter/material.dart';
-import 'package:conditional_builder/conditional_builder.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 class SocialLayout extends StatefulWidget {
@@ -35,6 +34,12 @@ class _SocialLayoutState extends State<SocialLayout> {
                 IconButton(
                   onPressed: (){},
                   icon: Icon(IconBroken.Notification),
+                ),
+                IconButton(
+                  onPressed: (){
+                    cubit.changeThemeMode();
+                  },
+                  icon: Icon(Icons.brightness_4_outlined),
                 ),
               ],
             ),

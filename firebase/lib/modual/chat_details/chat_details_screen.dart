@@ -10,6 +10,7 @@ class ChatDetailsScreen extends StatelessWidget {
 
   SocialUserModel userModel;
   TextEditingController controller = TextEditingController();
+  ScrollController controllerList = ScrollController();
   ChatDetailsScreen(this.userModel);
 
   @override
@@ -18,7 +19,8 @@ class ChatDetailsScreen extends StatelessWidget {
       builder: (context) {
         SocialCubit.get(context).getMessages(receivedId: userModel.uId!);
         return BlocConsumer<SocialCubit,SocialState>(
-          listener: (context,state){},
+          listener: (context,state){
+          },
           builder: (context,state){
             var cubit = SocialCubit.get(context);
             var messages = SocialCubit.get(context).messages;
@@ -44,22 +46,28 @@ class ChatDetailsScreen extends StatelessWidget {
                   child: Column(
                     children: [
                       Expanded(
-                        child: ListView.separated(
-                            physics: BouncingScrollPhysics(),
-                            itemBuilder: (context,index){
-                              if(SocialCubit.get(context).model!.uId!=messages[index].senderId)
-                                return messageItem(messages[index].text!);
-                              return myMessageItem(messages[index].text!);
-                            },
-                            separatorBuilder: (context,index)=>SizedBox(width: 10.0,),
-                            itemCount: messages.length
+
+                        child:ListView.separated(
+                              controller: controllerList,
+                              physics: BouncingScrollPhysics(),
+                              reverse: true,
+                              itemBuilder: (context,index){
+                                if(SocialCubit.get(context).model!.uId!=messages[index].senderId)
+                                  return messageItem(messages[index].text!,context);
+                                return myMessageItem(messages[index].text!,context);
+                              },
+                              separatorBuilder: (context,index)=>SizedBox(width: 10.0,),
+                              itemCount: messages.length
                         ),
                       ),
                       Container(
                         clipBehavior: Clip.antiAliasWithSaveLayer,
                         decoration: BoxDecoration(
                           border: Border.all(
-                              color: Colors.grey.shade300,
+                              color:
+                              Theme.of(context).scaffoldBackgroundColor==Colors.white?
+                                Colors.grey.shade300:
+                                Colors.grey.shade800,
                               width: 1.0
                           ),
                           borderRadius: BorderRadius.all(Radius.circular(15.0)),
@@ -117,7 +125,7 @@ class ChatDetailsScreen extends StatelessWidget {
       }
     );
   }
-  Widget messageItem(String message) =>
+  Widget messageItem(String message,context) =>
       Align(
         alignment: AlignmentDirectional.centerStart,
         child: Padding(
@@ -125,7 +133,10 @@ class ChatDetailsScreen extends StatelessWidget {
           child: Container(
             padding: EdgeInsets.symmetric(vertical: 10,horizontal: 5),
             decoration: BoxDecoration(
-                color: Colors.grey[200],
+                color:
+                Theme.of(context).scaffoldBackgroundColor==Colors.white?
+                Colors.grey[200]:
+                Colors.grey[800],
                 borderRadius: BorderRadiusDirectional.only(
                   topEnd: Radius.circular(10.0),
                   topStart: Radius.circular(10.0),
@@ -137,7 +148,7 @@ class ChatDetailsScreen extends StatelessWidget {
         ),
       );
 
-  Widget myMessageItem(String message) =>
+  Widget myMessageItem(String message,context) =>
       Align(
         alignment: AlignmentDirectional.centerEnd,
         child: Padding(
@@ -154,10 +165,7 @@ class ChatDetailsScreen extends StatelessWidget {
             ),
             child: Text(
                 message,
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 13,
-                ),
+                style: Theme.of(context).textTheme.bodyText2,
             ),
           ),
         ),
